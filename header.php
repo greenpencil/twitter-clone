@@ -1,7 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Katie
- * Date: 06/11/2016
- * Time: 23:46
- */
+require_once (__DIR__ . "/vendor/autoload.php");
+date_default_timezone_set('Europe/London');
+$view = new stdClass();

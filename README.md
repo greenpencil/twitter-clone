@@ -1,1 +1,1 @@
-Very simple template using metroUI
+Very simple twitter clone

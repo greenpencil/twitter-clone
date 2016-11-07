@@ -8,8 +8,32 @@
 
 namespace Twitter\Database;
 
+use Twitter\User;
 
-class UsersTable
+class UsersTable extends TableAbstract
 {
+
+    protected $name = 'users';
+    protected $primaryKey = 'id';
+
+    function fetchAllUsers()
+    {
+        $results = $this->fetchAll();
+        $userArray = array();
+        while ($row = $results->fetch()) {
+            $userArray[] = new User($row);
+        }
+        return $userArray;
+    }
+
+    function fetchUserByID($id)
+    {
+        $row = $this->fetchByPrimaryKey($id);
+        $newUser = NULL;
+        if($row) {
+            $newUser = new User($row);
+        }
+        return $newUser;
+    }
 
 }
