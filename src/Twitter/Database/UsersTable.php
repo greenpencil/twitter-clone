@@ -36,4 +36,19 @@ class UsersTable extends TableAbstract
         return $newUser;
     }
 
+    function addNewUser($data)
+    {
+        $password = password_hash($data['password'], PASSWORD_BCRYPT );
+
+        $sql = 'INSERT INTO '. $this->name .' (username, password, email) VALUES (:username, :password, :email)';
+        $result = $this->dbHandler->prepare($sql);
+        $result->execute(array(
+            ':username' => $data['username'],
+            ':password' => $password,
+            ':email' => $data['email']
+        ));
+        echo $this->dbHandler->lastInsertId();
+        return $this->dbHandler->lastInsertId();
+    }
+
 }
