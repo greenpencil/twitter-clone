@@ -26,7 +26,7 @@ class User
         $this->id = $row['id'];
         $this->username = $row['username'];
         $this->password = $row['password'];
-        $this->id = $row['email'];
+        $this->email = $row['email'];
 
         $followers = array();
         $following = array();

@@ -26,9 +26,11 @@
                         </div>
                     </div>
 
+                    <?php foreach ($view->tweets as $tweet) { ?>
                     <div class="row">
-                        tweet
+                        <?php echo "@". $tweet->user->username . " " . $tweet->content; ?>
                     </div>
+                    <?php } ?>
                 </div>
             </div>
             <div class="cell">

@@ -11,10 +11,23 @@ $tweetsTable = new \Twitter\Database\TweetsTable();
 //var_dump($tweetsTable->fetchAllTweets());
 
 if(isset($_SESSION['user'])) {
+
     if(isset($_POST['message']))
     {
-        $tweetsTable->addNewTweet($_POST['message']);
+        $data = array(
+            "content" =>  $_POST['message'],
+            "user_id" => $_SESSION['user']
+        );
+        $tweetsTable->addNewTweet($data);
     }
+
+    // right now you follow everyone
+    $view->tweets = $tweetsTable->fetchAllTweetByTime();
+
+    // code for only getting tweets from followers
+    $following_ids = array(1, 2 ,8);
+    $tweetsTable->fetchAllTweetByTimeByUserIdArray($following_ids);
+
     require_once("views/index.phtml");
 } else {
     if(isset($_POST['register'])) {
@@ -38,6 +51,7 @@ if(isset($_SESSION['user'])) {
 
         if($login === true)
         {
+            //var_dump($usersTable->fetchUserByUsername($data['username']));
             $user_id = $usersTable->fetchUserByUsername($data['username'])->id;
             $_SESSION['user'] = $user_id;
         } else {
