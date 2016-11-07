@@ -47,8 +47,36 @@ class UsersTable extends TableAbstract
             ':password' => $password,
             ':email' => $data['email']
         ));
-        echo $this->dbHandler->lastInsertId();
         return $this->dbHandler->lastInsertId();
+    }
+
+    function login($data)
+    {
+        $user = $this->fetchUserByUsername($data['username']);
+        if($user != null &&password_verify($data['password'], $user->password ))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    function fetchUserByUsername($username)
+    {
+        $sql = 'SELECT * FROM '. $this->name .' WHERE username = :username';
+        $results = $this->dbHandler->prepare($sql);
+        $results->execute(array(
+            ':username' => $username
+        ));
+        $row = $results->fetch();
+        if($row) {
+            $user = new User($row);
+        } else {
+            $user = NULL;
+        }
+        return $user;
     }
 
 }

@@ -22,10 +22,25 @@
                         <input name="email" type="text">
                     </div>
 
-                    <input type="submit" class="button success">
+                    <input type="submit" name="register" class="button success">
                 </form>
             </div>
-            <div class="cell colspan3">Login</div>
+            <div class="cell colspan3">
+                <h1>Login</h1>
+                <form method="post" action="index.php">
+                    <label>Username</label>
+                    <div class="input-control text full-size">
+                        <input name="username" type="text">
+                    </div>
+
+                    <label>Password</label>
+                    <div class="input-control password full-size">
+                        <input name="password" type="password">
+                    </div>
+
+                    <input type="submit" name="login" class="button success">
+                </form>
+            </div>
         </div>
     </div>
 </div>

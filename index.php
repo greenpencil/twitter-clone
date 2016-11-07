@@ -17,7 +17,7 @@ if(isset($_SESSION['user'])) {
     }
     require_once("views/index.phtml");
 } else {
-    if(isset($_POST['username'])) {
+    if(isset($_POST['register'])) {
         $data = array(
           "username" => $_POST['username'],
           "password" => $_POST['password'],
@@ -27,6 +27,22 @@ if(isset($_SESSION['user'])) {
         $user_id = $usersTable->addNewUser($data);
         $_SESSION['user'] = $user_id;
         header('Location: index.php');
+    } elseif (isset($_POST['login']))
+    {
+        $data = array(
+            "username" => $_POST['username'],
+            "password" => $_POST['password']
+        );
+
+        $login = $usersTable->login($data);
+
+        if($login === true)
+        {
+            $user_id = $usersTable->fetchUserByUsername($data['username'])->id;
+            $_SESSION['user'] = $user_id;
+        } else {
+            echo 'error';
+        }
     }
     require_once ("views/newAccount.phtml");
 }
